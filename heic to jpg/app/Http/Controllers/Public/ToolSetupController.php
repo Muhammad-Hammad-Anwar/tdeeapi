@@ -76,11 +76,11 @@ class ToolSetupController extends Controller
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
         if ($request['gender'] == 'Male') {
-            $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']);
-            $LeanBodyMass = (0.105 * $request['weight']) + (0.248 * $request['height']) - 4.31;
+            // $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']);
+            $BMR = $LeanBodyMass = (0.105 * $request['weight']) + (0.248 * $request['height']) - 4.31;
         } else {
-            $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
-            $LeanBodyMass = (0.089 * $request['weight']) + (0.245 * $request['height']) - 2.67;
+            // $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
+            $BMR = $LeanBodyMass = (0.089 * $request['weight']) + (0.245 * $request['height']) - 2.67;
         }
 
         $BMR += 370 + (21.6 * $LeanBodyMass);
@@ -96,11 +96,11 @@ class ToolSetupController extends Controller
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
         if ($request['gender'] == 'Male') {
-            $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']);
-            $LeanBodyMass = (1.10 * $request['weight']) - (128 * pow(($request['weight'] / $request['height']), 2));
+            // $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']);
+            $BMR = $LeanBodyMass = (1.10 * $request['weight']) - (128 * pow(($request['weight'] / $request['height']), 2));
         } else {
-            $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
-            $LeanBodyMass = (1.07 * $request['weight']) - (148 * pow(($request['weight'] / $request['height']), 2));
+            // $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
+            $BMR =  $LeanBodyMass = (1.07 * $request['weight']) - (148 * pow(($request['weight'] / $request['height']), 2));
         }
 
         $BMR += 500 + (22 * $LeanBodyMass);
@@ -189,13 +189,11 @@ class ToolSetupController extends Controller
         $height = $request['height'] / 100; // Convert height from cm to meters
 
         $BMI = $weightInKg / ($height * $height);
+        $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
 
+        $quetelet = ['quetelet' => $roundedBMI];
 
-        $levels   = calculate_levels($BMI);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $quetelet = ['calories' => $calories];
+        // dd($quetelet)
 
 
         /**
@@ -203,17 +201,26 @@ class ToolSetupController extends Controller
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $weightInKg = $request['weight'];
-        $heightInCm = $request['height'];
+    //     $weightInKg = $request['weight'];
+    //     $heightInCm = $request['height'];
 
-        $BMI = $weightInKg / (($heightInCm / 100) * ($heightInCm / 100));
+    //     $BMI = $weightInKg / (($heightInCm / 100) * ($heightInCm / 100));
 
 
-        $levels   = calculate_levels($BMI);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($BMI);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $Metric = ['calories' => $calories];
+    //    $Metric = ['calories' => $calories];
+    $weightInKg = $request['weight'];
+    $heightInCm = $request['height'];
+
+    $BMI = $weightInKg / (($heightInCm / 100) * ($heightInCm / 100));
+    $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
+
+    $Metric = ['Metric' => $roundedBMI];
+
+
 
 
         /**
@@ -221,51 +228,69 @@ class ToolSetupController extends Controller
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $weightInLb = $request['weight'];
+        $weightInKg = $request['weight'];
         $heightInInches = $request['height'];
-
+        
+        // Convert weight from kilograms to pounds
+        $weightInLb = $weightInKg * 2.20462;
+        
         $BMI = (703 * $weightInLb) / ($heightInInches * $heightInInches);
-
-
-        $levels   = calculate_levels($BMI);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $English = ['calories' => $calories];
-
+        $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
+        
+        $English = ['English' => $roundedBMI];
+        
         /**
         * WHO.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $weightInKg = $request['weight'];
-        $heightInMeters = $request['height'] / 100; // Convert height from cm to meters
+    //     $weightInKg = $request['weight'];
+    //     $heightInMeters = $request['height'] / 100; // Convert height from cm to meters
 
-        $BMI = $weightInKg / ($heightInMeters * $heightInMeters);
+    //     $BMI = $weightInKg / ($heightInMeters * $heightInMeters);
 
 
-        $levels   = calculate_levels($BMI);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($BMI);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $WHO = ['calories' => $calories];
+    //    $WHO = ['calories' => $calories];
+    $weightInKg = $request['weight'];
+    $heightInMeters = $request['height'] / 100; // Convert height from cm to meters
+
+    $BMI = $weightInKg / ($heightInMeters * $heightInMeters);
+    $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
+
+    $WHO = ['WHO' => $roundedBMI];
+
 
         /**
         * NIH.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $weightInLb = $request['weight'];
-        $heightInInches = $request['height'];
+    //     $weightInLb = $request['weight'];
+    //     $heightInInches = $request['height'];
 
-        $BMI = ($weightInLb / ($heightInInches * $heightInInches)) * 703;
+    //     $BMI = ($weightInLb / ($heightInInches * $heightInInches)) * 703;
 
 
-        $levels   = calculate_levels($BMI);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($BMI);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $NIH = ['calories' => $calories];
+    //    $NIH = ['calories' => $calories];
+            $weightInKg = $request['weight'];
+            $heightInInches = $request['height'];
+
+            // Convert weight from kilograms to pounds
+            $weightInLb = $weightInKg * 2.20462;
+
+            $BMI = ($weightInLb / ($heightInInches * $heightInInches)) * 703;
+            $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
+
+            $NIH = ['NIH' => $roundedBMI];
+
 
         return [
             'quetelet'=> $quetelet,'Metric'=> $Metric, 'English'=> $English, 'WHO'=> $WHO, 'NIH'=> $NIH
@@ -283,85 +308,137 @@ class ToolSetupController extends Controller
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInInches = $request['height'];
+        // $heightInInches = $request['height'];
+        // $isMale = $request['gender'] == 'Male';
+
+        // $IBW = $isMale ? (48 + (2.7 * $heightInInches - 60)) : (45.5 + (2.2 * $heightInInches - 60));
+
+
+        // $levels   = calculate_levels($IBW);
+        // $goals    = calculate_goals($levels[$request['activity-level']]);
+        // $calories = calculate_calories($goals[$request['goal']]);
+
+        // $GJ_Hamwi = ['calories' => $calories];
+        $heightInCm = $request['height'];
+        $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
+        
         $isMale = $request['gender'] == 'Male';
+        
+        if ($isMale) {
+            $IBW = 48 + (2.7 * ($heightInInches - 60));
+        } else {
+            $IBW = 45.5 + (2.2 * ($heightInInches - 60));
+        }
+        
+        $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+        
+        $GJ_Hamwi = ['GJ_Hamwi' => $roundedIBW];
+        
 
-        $IBW = $isMale ? (48 + (2.7 * $heightInInches - 60)) : (45.5 + (2.2 * $heightInInches - 60));
-
-
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-        $GJ_Hamwi = ['calories' => $calories];
 
          /**
         * BJ_Devine.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInInches = $request['height'];
+        // $heightInInches = $request['height'];
+        // $isMale = $request['gender'] == 'Male';
+
+        // $IBW = $isMale ? (50 + (2.3 * $heightInInches - 60)) : (45.5 + (2.3 * $heightInInches - 60));
+
+
+        // $levels   = calculate_levels($IBW);
+        // $goals    = calculate_goals($levels[$request['activity-level']]);
+        // $calories = calculate_calories($goals[$request['goal']]);
+
+        // $BJ_Devine = ['calories' => $calories];
+        $heightInCm = $request['height'];
+        $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
+
         $isMale = $request['gender'] == 'Male';
 
-        $IBW = $isMale ? (50 + (2.3 * $heightInInches - 60)) : (45.5 + (2.3 * $heightInInches - 60));
+        $IBW = $isMale ? (50 + (2.3 * ($heightInInches - 60))) : (45.5 + (2.3 * ($heightInInches - 60)));
+        $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
 
-
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-        $BJ_Devine = ['calories' => $calories];
+        $BJ_Devine = ['BJ_Devine' => $roundedIBW];
 
         /**
         * JD_Robinson.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInCm = $request['height'];
-        $isMale = $request['gender'] == 'Male';
+    //     $heightInCm = $request['height'];
+    //     $isMale = $request['gender'] == 'Male';
 
-        $IBW = $isMale ? (52 + (1.9 * $heightInCm - 152.4)) : (49 + (1.7 * $heightInCm - 152.4));
+    //     $IBW = $isMale ? (52 + (1.9 * $heightInCm - 152.4)) : (49 + (1.7 * $heightInCm - 152.4));
 
 
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($IBW);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $JD_Robinson = ['calories' => $calories];
-
+    //    $JD_Robinson = ['calories' => $calories];
+    $heightInCm = $request['height'];
+    $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
+    
+    $isMale = $request['gender'] == 'Male';
+    
+    $IBW = $isMale ? (52 + (1.9 * ($heightInInches - 60))) : (49 + (1.7 * ($heightInInches - 60)));
+    $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+    
+    $JD_Robinson = ['JD_Robinson' => $roundedIBW];
+    
          /**
         * DR_Miller.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInCm = $request['height'];
-        $isMale = $request['gender'] == 'Male';
+    //     $heightInCm = $request['height'];
+    //     $isMale = $request['gender'] == 'Male';
 
-        $IBW = $isMale ? (56.2 + (1.41 * $heightInCm - 152.4)) : (53.1 + (1.36 * $heightInCm - 152.4));
+    //     $IBW = $isMale ? (56.2 + (1.41 * $heightInCm - 152.4)) : (53.1 + (1.36 * $heightInCm - 152.4));
 
 
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($IBW);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $DR_Miller = ['calories' => $calories];
-
+    //    $DR_Miller = ['calories' => $calories];
+    $heightInCm = $request['height'];
+    $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
+    
+    $isMale = $request['gender'] == 'Male';
+    
+    $IBW = $isMale ? (56.2 + (1.41 * ($heightInInches - 60))) : (53.1 + (1.36 * ($heightInInches - 60)));
+    $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+    
+    $DR_Miller = ['DR_Miller' => $roundedIBW];
+    
           /**
         * BMI_based.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInMeters = $request['height'] / 100; // Convert height from centimeters to meters
-        $BMI = $request['weight'] / ($heightInMeters * $heightInMeters);
-        $IBW = $BMI * ($heightInMeters * $heightInMeters);
+    //     $heightInMeters = $request['height'] / 100; // Convert height from centimeters to meters
+    //     $BMI = $request['weight'] / ($heightInMeters * $heightInMeters);
+    //     $IBW = $BMI * ($heightInMeters * $heightInMeters);
 
 
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
+    //     $levels   = calculate_levels($IBW);
+    //     $goals    = calculate_goals($levels[$request['activity-level']]);
+    //     $calories = calculate_calories($goals[$request['goal']]);
 
-       $BMI_based = ['calories' => $calories];
-
+    //    $BMI_based = ['calories' => $calories];
+    $heightInCm = $request['height'];
+    $heightInMeters = $heightInCm / 100; // Convert height from centimeters to meters
+    
+    $BMI = $request['weight'] / ($heightInMeters * $heightInMeters);
+    $IBW = $BMI * ($heightInMeters * $heightInMeters);
+    
+    $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+    
+    $BMI_based = ['BMI_based' => $roundedIBW];
+    
          /**
         * Broca.
         */
@@ -372,28 +449,26 @@ class ToolSetupController extends Controller
         } else {
             $IBW = ($request['height'] - 100) + (($request['height'] - 100) * 0.15);
         }
-
-
-        $levels   = calculate_levels($IBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Broca = ['calories' => $calories];
+        
+        $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+        
+        $Broca = ['Broca' => $roundedIBW];
+        
 
         /**
         * Harry.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $heightInMeters = $request['height'] / 100; // Convert height from centimeters to meters
+        $heightInCm = $request['height'];
+        $heightInMeters = $heightInCm / 100; // Convert height from centimeters to meters
+        
         $IBW = 22 * pow($heightInMeters, 2);
-
-
-        $levels   = calculate_levels($IBW);
-         $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-        $Harry = ['calories' => $calories];
+        $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
+        
+        $Harry = ['Harry' => $roundedIBW];
+        
+        
         return  [
             'GJ_Hamwi'=> $GJ_Hamwi,'BJ_Devine'=> $BJ_Devine,'JD_Robinson'=> $JD_Robinson,'DR_Miller'=> $DR_Miller,'BMI_based'=> $BMI_based,'Broca'=> $Broca,'Harry'=> $Harry
         ];
@@ -411,15 +486,12 @@ class ToolSetupController extends Controller
 
         $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-
+        
         $bodyFatPercentage = (1.20 * $BMI) + (0.23 * $request['age']) - (10.8 * $genderFactor) - 5.4;
-
-        $levels = calculate_levels($bodyFatPercentage);
-        $goals = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-        $Deurenberg = ['calories' => $calories];
-
+        $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
+        
+        $Deurenberg = ['Deurenberg' => $roundedBodyFatPercentage];
+        
 
               /**
         * Deurenberg2.
@@ -428,15 +500,13 @@ class ToolSetupController extends Controller
 
         $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-
+        
         $bodyFatPercentage = (1.29 * $BMI) + (0.20 * $request['age']) - (11.4 * $genderFactor) - 8.0;
-
-
-        $levels   = calculate_levels($bodyFatPercentage);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Deurenberg2 = ['calories' => $calories];
+        
+        $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
+        
+        $Deurenberg2 = ['Deurenberg2' => $roundedBodyFatPercentage];
+        
 
         /**
         * Gallagher.
@@ -445,15 +515,13 @@ class ToolSetupController extends Controller
 
         $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-
+        
         $bodyFatPercentage = (1.46 * $BMI) + (0.14 * $request['age']) - (11.6 * $genderFactor) - 10;
-
-
-        $levels   = calculate_levels($bodyFatPercentage);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Gallagher = ['calories' => $calories];
+        
+        $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
+        
+        $Gallagher = ['Gallagher' => $roundedBodyFatPercentage];
+        
 
         /**
         * Jackson_Pollock.
@@ -462,15 +530,13 @@ class ToolSetupController extends Controller
 
         $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-
+        
         $bodyFatPercentage = (1.61 * $BMI) + (0.13 * $request['age']) - (12.1 * $genderFactor) - 13.9;
-
-
-        $levels   = calculate_levels($bodyFatPercentage);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Jackson_Pollock = ['calories' => $calories];
+        
+        $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
+        
+        $Jackson_Pollock = ['Jackson_Pollock' => $roundedBodyFatPercentage];
+        
 
         /**
         * Jackson.
@@ -479,16 +545,13 @@ class ToolSetupController extends Controller
 
         $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-
+        
         $bodyFatPercentage = (1.39 * $BMI) + (0.16 * $request['age']) - (10.34 * $genderFactor) - 9;
-
-
-        $levels   = calculate_levels($bodyFatPercentage);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Jackson = ['calories' => $calories];
-
+        
+        $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
+        
+        $Jackson = ['Jackson' => $roundedBodyFatPercentage];
+        
 
         return [
             'Deurenberg'=> $Deurenberg,'Deurenberg2'=> $Deurenberg2,'Gallagher'=> $Gallagher,'Jackson_Pollock'=> $Jackson_Pollock,'Jackson'=> $Jackson,
@@ -507,19 +570,17 @@ class ToolSetupController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-
+        
         if ($gender == 'Male') {
             $LBW = 0.407 * $weight + 0.267 * $height - 19.2;
         } else {
             $LBW = 0.252 * $weight + 0.473 * $height - 48.3;
         }
-
-
-        $levels   = calculate_levels($LBW);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $Boer = ['calories' => $calories];
+        
+        $roundedLBW = round($LBW, 2); // Round the LBM value to two decimal places
+        
+        $Boer = ['Boer' => $roundedLBW];
+        
 
         /**
         * James.
@@ -529,19 +590,17 @@ class ToolSetupController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-
+        
         if ($gender == 'Male') {
-        $BMR = 1.10 * $weight - 128 * pow($weight / $height, 2);
+            $BMR = 1.10 * $weight - 128 * pow($weight / $height, 2);
         } else {
-        $BMR = 1.07 * $weight - 148 * pow($weight / $height, 2);
+            $BMR = 1.07 * $weight - 148 * pow($weight / $height, 2);
         }
-
-
-        $levels   = calculate_levels($BMR);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-       $James = ['calories' => $calories];
+        
+        $roundedBMR = round($BMR, 2); // Round the BMR value to two decimal places
+        
+        $James = ['James' => $roundedBMR];
+        
 
         /**
         * Hume.
@@ -551,18 +610,17 @@ class ToolSetupController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-
+        
         if ($gender == 'Male') {
-        $LBM = (0.32810 * $weight) + (0.33929 * $height) - 29.5336;
+            $LBM = (0.32810 * $weight) + (0.33929 * $height) - 29.5336;
         } else {
-        $LBM = (0.29569 * $weight) + (0.41813 * $height) - 43.2933;
+            $LBM = (0.29569 * $weight) + (0.41813 * $height) - 43.2933;
         }
-
-        $levels   = calculate_levels($LBM);
-        $goals    = calculate_goals($levels[$request['activity-level']]);
-        $calories = calculate_calories($goals[$request['goal']]);
-
-        $Hume = ['calories' => $calories];
+        
+        $roundedLBM = round($LBM, 2); // Round the LBM value to two decimal places
+        
+        $Hume = ['Hume' => $roundedLBM];
+        
         return [
             'Boer'=> $Boer,'James'=> $James,'Hume'=> $Hume
         ];

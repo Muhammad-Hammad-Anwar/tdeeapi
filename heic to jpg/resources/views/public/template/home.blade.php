@@ -11,7 +11,7 @@
                         <div class="row form-bg">
                             <div class="form-group col-md-6 col-12">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control mt-2" id="name" placeholder="Enter your name"  name="name" required>
+                                <input type="text" class="form-control mt-2" id="name" placeholder="Enter your name"  name="name" >
                             </div>
                             <div class="form-group col-md-3 col-6">
                                 <label for="age">Age</label>
@@ -327,7 +327,7 @@
                                         <div class="d-flex align-items-center">
                                             <h5 class="ms-5">Extreme Weight Gain</h5>
                                             <p class="mt-2 ms-2 section-paragraph-img-paragraph2">(2 lbs per week)</p>
-                                            <h2 class="paragraph-end2">{{ $result['bmr']['harris_benedict']['goals']['Mid weight Loss'] }}</h2>
+                                            <h2 class="paragraph-end2">{{ $result['bmr']['harris_benedict']['goals']['Extreme Weight Gain'] }}</h2>
                                             <div class="mt-2 ms-2 me-5 section-paragraph-img-paragraph2">
                                                         <p>
                                                         (cal per day)
@@ -501,7 +501,7 @@
                                         <div class="d-flex align-items-center">
                                             <h5 class="ms-5">Extreme Weight Gain</h5>
                                             <p class="mt-2 ms-2 section-paragraph-img-paragraph2">(2 lbs per week)</p>
-                                            <h2 class="paragraph-end2">{{ $result['bmr']['mifflin_st_jeor']['goals']['Mid weight Loss'] }}</h2>
+                                            <h2 class="paragraph-end2">{{ $result['bmr']['mifflin_st_jeor']['goals']['Extreme Weight Gain'] }}</h2>
                                             <div class="mt-2 ms-2 me-5 section-paragraph-img-paragraph2">
                                                         <p>
                                                         (cal per day)
@@ -675,7 +675,7 @@
                                         <div class="d-flex align-items-center">
                                             <h5 class="ms-5">Extreme Weight Gain</h5>
                                             <p class="mt-2 ms-2 section-paragraph-img-paragraph2">(2 lbs per week)</p>
-                                            <h2 class="paragraph-end2">{{ $result['bmr']['katch_mcardle']['goals']['Mid weight Loss'] }}</h2>
+                                            <h2 class="paragraph-end2">{{ $result['bmr']['katch_mcardle']['goals']['Extreme Weight Gain'] }}</h2>
                                             <div class="mt-2 ms-2 me-5 section-paragraph-img-paragraph2">
                                                         <p>
                                                         (cal per day)
@@ -849,7 +849,7 @@
                                         <div class="d-flex align-items-center">
                                             <h5 class="ms-5">Extreme Weight Gain</h5>
                                             <p class="mt-2 ms-2 section-paragraph-img-paragraph2">(2 lbs per week)</p>
-                                            <h2 class="paragraph-end2">{{ $result['bmr']['cunningham']['goals']['Mid weight Loss'] }}</h2>
+                                            <h2 class="paragraph-end2">{{ $result['bmr']['cunningham']['goals']['Extreme Weight Gain'] }}</h2>
                                             <div class="mt-2 ms-2 me-5 section-paragraph-img-paragraph2">
                                                         <p>
                                                         (cal per day)
@@ -1023,7 +1023,7 @@
                                         <div class="d-flex align-items-center">
                                             <h5 class="ms-5">Extreme Weight Gain</h5>
                                             <p class="mt-2 ms-2 section-paragraph-img-paragraph2">(2 lbs per week)</p>
-                                            <h2 class="paragraph-end2">{{ $result['bmr']['oxford']['goals']['Mid weight Loss'] }}</h2>
+                                            <h2 class="paragraph-end2">{{ $result['bmr']['oxford']['goals']['Extreme Weight Gain'] }}</h2>
                                             <div class="mt-2 ms-2 me-5 section-paragraph-img-paragraph2">
                                                         <p>
                                                         (cal per day)
@@ -1199,7 +1199,7 @@
                                                     class="accordian-img-size2 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color3 ">{{ $result['bmi']['quetelet']['calories']['one_day'] }}</h6>
+                                                <h6 class="accordian-section2-color3 ">{{ $result['bmi']['quetelet']['quetelet']}}</h6>
                                                 <p class="accordian-section2-color-para">kG m2</p>
                                             </div>
                                         </div>
@@ -1212,35 +1212,35 @@
                                             <h5 class="ms-md-5 weight-none">
                                                 Quetelets formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bmi']['quetelet']['calories']['one_day'] }}KG m2</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bmi']['quetelet']['quetelet'] }}KG m2</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Metric formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bmi']['Metric']['calories']['one_day'] }} KG m2</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bmi']['Metric']['Metric']}} KG m2</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 English formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bmi']['English']['calories']['one_day'] }} KG m2</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bmi']['English']['English'] }} KG m2</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 WHO formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bmi']['WHO']['calories']['one_day'] }} KG m2</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bmi']['WHO']['WHO']}} KG m2</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 NIH formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bmi']['NIH']['calories']['one_day'] }} KG m2</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bmi']['NIH']['NIH']}} KG m2</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -1268,7 +1268,7 @@
                                                     class="accordian-img-size2 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color4">{{ $result['ibw']['GJ_Hamwi']['calories']['one_day'] }}</h6>
+                                                <h6 class="accordian-section2-color4">{{ $result['ibw']['GJ_Hamwi']['GJ_Hamwi'] }}</h6>
                                                 <p class="accordian-section2-color-para">Kilogram</p>
                                             </div>
                                         </div>
@@ -1281,49 +1281,49 @@
                                             <h5 class="ms-md-5 weight-none">
                                                 G. J. Hamwi Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['GJ_Hamwi']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['GJ_Hamwi']['GJ_Hamwi'] }} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 B. J. Devine Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['BJ_Devine']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['BJ_Devine'] ['BJ_Devine']}} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 J. D. Robinson Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['JD_Robinson']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['JD_Robinson']['JD_Robinson'] }} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 D. R. Miller Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['DR_Miller']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['DR_Miller']['DR_Miller'] }} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 BMI-based formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['BMI_based']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['BMI_based']['BMI_based'] }} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Broca Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['Broca']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['Broca']['Broca'] }} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Harry J. M. Lemmens Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['ibw']['Harry']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['ibw']['Harry']['Harry'] }} Kg</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -1351,7 +1351,7 @@
                                                     class="accordian-img-size2 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color5">{{ $result['bfp']['Deurenberg']['calories']['one_day'] }} </h6>
+                                                <h6 class="accordian-section2-color5">{{ $result['bfp']['Deurenberg']['Deurenberg'] }} </h6>
                                                 <p class="accordian-section2-color-para">Percentage</p>
                                             </div>
                                         </div>
@@ -1364,35 +1364,35 @@
                                             <h5 class="ms-md-5 weight-none">
                                                 Deurenberg Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bfp']['Deurenberg']['calories']['one_day'] }} Cal</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bfp']['Deurenberg'] ['Deurenberg']}} Cal</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Deurenberg Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bfp']['Deurenberg2']['calories']['one_day'] }} Cal</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bfp']['Deurenberg2']['Deurenberg2'] }} Cal</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Gallagher Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bfp']['Gallagher']['calories']['one_day'] }} Cal</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bfp']['Gallagher']['Gallagher'] }} Cal</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Jackson-Pollock Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bfp']['Jackson_Pollock']['calories']['one_day'] }} Cal</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bfp']['Jackson_Pollock']['Jackson_Pollock'] }} Cal</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Jackson As Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['bfp']['Jackson']['calories']['one_day'] }} Cal</h2>
+                                            <h2 class="paragraph-end1">{{ $result['bfp']['Jackson'] ['Jackson'] }} Cal</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -1420,7 +1420,7 @@
                                                     class="accordian-img-size2 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color6">{{ $result['lbw']['Boer']['calories']['one_day'] }}</h6>
+                                                <h6 class="accordian-section2-color6">{{ $result['lbw']['Boer']['Boer'] }}</h6>
                                                 <p class="accordian-section2-color-para">Kilogram</p>
                                             </div>
                                         </div>
@@ -1433,21 +1433,21 @@
                                             <h5 class="ms-md-5 weight-none">
                                                 Boer Equation
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['lbw']['Boer']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['lbw']['Boer']['Boer']}} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 James Formula
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['lbw']['James']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['lbw']['James']['James']}} Kg</h2>
                                         </div>
                                         <hr class="mx-5 section-second-hr">
                                         <div class="d-flex align-items-center mt-4 ">
                                             <h5 class="ms-md-5">
                                                 Hume Equation
                                             </h5>
-                                            <h2 class="paragraph-end1">{{ $result['lbw']['Hume']['calories']['one_day'] }} Kg</h2>
+                                            <h2 class="paragraph-end1">{{ $result['lbw']['Hume']['Hume']}} Kg</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -1550,7 +1550,7 @@
                                                     class="accordian-img-size1 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color8">646541</h6>
+                                                <h6 class="accordian-section2-color8">6465</h6>
                                                 <p class="accordian-section2-color-para">calories per month</p>
                                             </div>
                                         </div>
@@ -1560,7 +1560,7 @@
                                                     class="accordian-img-size1 ms-5 ">
                                             </div>
                                             <div class="ml-2">
-                                                <h6 class="accordian-section2-color8">646541</h6>
+                                                <h6 class="accordian-section2-color8">6461</h6>
                                                 <p class="accordian-section2-color-para">calories per month</p>
                                             </div>
                                         </div>
