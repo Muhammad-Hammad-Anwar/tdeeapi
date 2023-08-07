@@ -247,15 +247,15 @@ class ApiCalculatorController extends Controller
 
         $weightInKg = $request['weight'];
         $heightInInches = $request['height'];
-        
+
         // Convert weight from kilograms to pounds
         $weightInLb = $weightInKg * 2.20462;
-        
+
         $BMI = (703 * $weightInLb) / ($heightInInches * $heightInInches);
         $roundedBMI = round($BMI, 2); // Round the BMI value to two decimal places
-        
+
         $English = ['English' => $roundedBMI];
-        
+
         /**
         * WHO.
         */
@@ -338,19 +338,19 @@ class ApiCalculatorController extends Controller
         // $GJ_Hamwi = ['calories' => $calories];
         $heightInCm = $request['height'];
         $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
-        
-        $isMale = $request['gender'] == 'Male';
-        
+
+        $isMale = $request['gender'] == 'male';
+
         if ($isMale) {
             $IBW = 48 + (2.7 * ($heightInInches - 60));
         } else {
             $IBW = 45.5 + (2.2 * ($heightInInches - 60));
         }
-        
+
         $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-        
+
         $GJ_Hamwi = ['GJ_Hamwi' => $roundedIBW];
-        
+
 
 
          /**
@@ -372,7 +372,7 @@ class ApiCalculatorController extends Controller
         $heightInCm = $request['height'];
         $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
 
-        $isMale = $request['gender'] == 'Male';
+        $isMale = $request['gender'] == 'male';
 
         $IBW = $isMale ? (50 + (2.3 * ($heightInInches - 60))) : (45.5 + (2.3 * ($heightInInches - 60)));
         $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
@@ -397,14 +397,14 @@ class ApiCalculatorController extends Controller
     //    $JD_Robinson = ['calories' => $calories];
     $heightInCm = $request['height'];
     $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
-    
-    $isMale = $request['gender'] == 'Male';
-    
+
+    $isMale = $request['gender'] == 'male';
+
     $IBW = $isMale ? (52 + (1.9 * ($heightInInches - 60))) : (49 + (1.7 * ($heightInInches - 60)));
     $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-    
+
     $JD_Robinson = ['JD_Robinson' => $roundedIBW];
-    
+
          /**
         * DR_Miller.
         */
@@ -423,14 +423,14 @@ class ApiCalculatorController extends Controller
     //    $DR_Miller = ['calories' => $calories];
     $heightInCm = $request['height'];
     $heightInInches = $heightInCm / 2.54; // Convert height from cm to inches
-    
-    $isMale = $request['gender'] == 'Male';
-    
+
+    $isMale = $request['gender'] == 'male';
+
     $IBW = $isMale ? (56.2 + (1.41 * ($heightInInches - 60))) : (53.1 + (1.36 * ($heightInInches - 60)));
     $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-    
+
     $DR_Miller = ['DR_Miller' => $roundedIBW];
-    
+
           /**
         * BMI_based.
         */
@@ -448,29 +448,29 @@ class ApiCalculatorController extends Controller
     //    $BMI_based = ['calories' => $calories];
     $heightInCm = $request['height'];
     $heightInMeters = $heightInCm / 100; // Convert height from centimeters to meters
-    
+
     $BMI = $request['weight'] / ($heightInMeters * $heightInMeters);
     $IBW = $BMI * ($heightInMeters * $heightInMeters);
-    
+
     $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-    
+
     $BMI_based = ['BMI_based' => $roundedIBW];
-    
+
          /**
         * Broca.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        if ($request['gender'] == 'Male') {
+        if ($request['gender'] == 'male') {
             $IBW = ($request['height'] - 100) - (($request['height'] - 100) * 0.1);
         } else {
             $IBW = ($request['height'] - 100) + (($request['height'] - 100) * 0.15);
         }
-        
+
         $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-        
+
         $Broca = ['Broca' => $roundedIBW];
-        
+
 
         /**
         * Harry.
@@ -479,13 +479,13 @@ class ApiCalculatorController extends Controller
 
         $heightInCm = $request['height'];
         $heightInMeters = $heightInCm / 100; // Convert height from centimeters to meters
-        
+
         $IBW = 22 * pow($heightInMeters, 2);
         $roundedIBW = round($IBW, 2); // Round the IBW value to two decimal places
-        
+
         $Harry = ['Harry' => $roundedIBW];
-        
-        
+
+
         return  [
             'GJ_Hamwi'=> $GJ_Hamwi,'BJ_Devine'=> $BJ_Devine,'JD_Robinson'=> $JD_Robinson,'DR_Miller'=> $DR_Miller,'BMI_based'=> $BMI_based,'Broca'=> $Broca,'Harry'=> $Harry
         ];
@@ -501,74 +501,76 @@ class ApiCalculatorController extends Controller
         */
         //
 
-        $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
+        $genderFactor = $request['gender'] == 'male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-        
+
         $bodyFatPercentage = (1.20 * $BMI) + (0.23 * $request['age']) - (10.8 * $genderFactor) - 5.4;
         $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
-        
+
         $Deurenberg = ['Deurenberg' => $roundedBodyFatPercentage];
-        
+
+        // dd($Deurenberg);
+
 
               /**
         * Deurenberg2.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
+        $genderFactor = $request['gender'] == 'male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-        
+
         $bodyFatPercentage = (1.29 * $BMI) + (0.20 * $request['age']) - (11.4 * $genderFactor) - 8.0;
-        
+
         $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
-        
+
         $Deurenberg2 = ['Deurenberg2' => $roundedBodyFatPercentage];
-        
+
 
         /**
         * Gallagher.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
+        $genderFactor = $request['gender'] == 'male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-        
+
         $bodyFatPercentage = (1.46 * $BMI) + (0.14 * $request['age']) - (11.6 * $genderFactor) - 10;
-        
+
         $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
-        
+
         $Gallagher = ['Gallagher' => $roundedBodyFatPercentage];
-        
+
 
         /**
         * Jackson_Pollock.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
+        $genderFactor = $request['gender'] == 'male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-        
+
         $bodyFatPercentage = (1.61 * $BMI) + (0.13 * $request['age']) - (12.1 * $genderFactor) - 13.9;
-        
+
         $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
-        
+
         $Jackson_Pollock = ['Jackson_Pollock' => $roundedBodyFatPercentage];
-        
+
 
         /**
         * Jackson.
         */
         // $request['gender'] == 'Male' ? $BMR = 66.5 + (13.75 * $request['weight']) + (5.003 * $request['height']) - (6.75 * $request['age']) : $BMR = 655 + (4.35 * $request['weight']) + (4.7 * $request['height']) - (4.7 * $request['age']);
 
-        $genderFactor = $request['gender'] == 'Male' ? 1 : 0; // Assign 1 for male, 0 for female
+        $genderFactor = $request['gender'] == 'male' ? 1 : 0; // Assign 1 for male, 0 for female
         $BMI = $request['weight'] / pow(($request['height'] / 100), 2); // Calculate BMI using weight in kg and height in meters
-        
+
         $bodyFatPercentage = (1.39 * $BMI) + (0.16 * $request['age']) - (10.34 * $genderFactor) - 9;
-        
+
         $roundedBodyFatPercentage = round($bodyFatPercentage, 2); // Round the BFP value to two decimal places
-        
+
         $Jackson = ['Jackson' => $roundedBodyFatPercentage];
-        
+
 
         return [
             'Deurenberg'=> $Deurenberg,'Deurenberg2'=> $Deurenberg2,'Gallagher'=> $Gallagher,'Jackson_Pollock'=> $Jackson_Pollock,'Jackson'=> $Jackson,
@@ -587,17 +589,17 @@ class ApiCalculatorController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-        
-        if ($gender == 'Male') {
+
+        if ($gender == 'male') {
             $LBW = 0.407 * $weight + 0.267 * $height - 19.2;
         } else {
             $LBW = 0.252 * $weight + 0.473 * $height - 48.3;
         }
-        
+
         $roundedLBW = round($LBW, 2); // Round the LBM value to two decimal places
-        
+
         $Boer = ['Boer' => $roundedLBW];
-        
+
 
         /**
         * James.
@@ -607,17 +609,17 @@ class ApiCalculatorController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-        
-        if ($gender == 'Male') {
+
+        if ($gender == 'male') {
             $BMR = 1.10 * $weight - 128 * pow($weight / $height, 2);
         } else {
             $BMR = 1.07 * $weight - 148 * pow($weight / $height, 2);
         }
-        
+
         $roundedBMR = round($BMR, 2); // Round the BMR value to two decimal places
-        
+
         $James = ['James' => $roundedBMR];
-        
+
 
         /**
         * Hume.
@@ -627,17 +629,17 @@ class ApiCalculatorController extends Controller
         $gender = $request['gender'];
         $weight = $request['weight'];
         $height = $request['height'];
-        
-        if ($gender == 'Male') {
+
+        if ($gender == 'male') {
             $LBM = (0.32810 * $weight) + (0.33929 * $height) - 29.5336;
         } else {
             $LBM = (0.29569 * $weight) + (0.41813 * $height) - 43.2933;
         }
-        
+
         $roundedLBM = round($LBM, 2); // Round the LBM value to two decimal places
-        
+
         $Hume = ['Hume' => $roundedLBM];
-        
+
         return [
             'Boer'=> $Boer,'James'=> $James,'Hume'=> $Hume
         ];
